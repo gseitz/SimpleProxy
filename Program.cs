@@ -163,9 +163,12 @@ namespace SimpleProxy{
             }
 
             //response
-            byte[] b = result;
-            context.Response.ContentLength64 = b.Length;
-            context.Response.OutputStream.Write(b, 0, b.Length);
+            if (context.Request.HttpMethod != "HEAD")
+            {
+            	byte[] b = result;
+            	context.Response.ContentLength64 = b.Length;
+            	context.Response.OutputStream.Write(b, 0, b.Length);
+            }
             context.Response.OutputStream.Close();
         }
     }
